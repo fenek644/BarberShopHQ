@@ -48,18 +48,18 @@ post '/visit' do
   @master = params[:master]
   @color = params[:colorpicker]
 
-  cl = Client.new
-  cl.name = @user_name
-  cl.phone = @phone
-  cl.datestamp = @date_time
-  cl.barber = @master
-  cl.color = @color
+  cl = Client.new params[:client]
+  # cl.name = @user_name
+  # cl.phone = @phone
+  # cl.datestamp = @date_time
+  # cl.barber = @master
+  # cl.color = @color
   cl.save
 
 
 
   # erb :visit_mess
-  erb "OK #{@user_name}; вы записаны на #{@date_time}; ваш мастер #{@master}; выбранный цвет #{@color}"
+  erb "OK #{params[:client][:name]}; вы записаны на #{params[:client][:datestamp]}; ваш мастер #{params[:client][:barber]}; выбранный цвет #{params[:client][:color]}"
 end
 
 post '/contacts' do
