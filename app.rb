@@ -15,6 +15,10 @@ class Barber < ActiveRecord::Base
 
 end
 
+class Contact < ActiveRecord::Base
+
+end
+
 before do
 
   @barbers = Barber.all
@@ -29,6 +33,10 @@ end
 get '/visit' do
   # @db = get_db
   erb :visit
+end
+
+get '/contacts' do
+  erb :contacts
 end
 
 post '/visit' do
@@ -54,4 +62,34 @@ post '/visit' do
   erb "OK #{@user_name}; вы записаны на #{@date_time}; ваш мастер #{@master}; выбранный цвет #{@color}"
 end
 
+post '/contacts' do
+  @ename = params[:ename]
+  @email = params[:email]
+  @message = params[:message]
 
+
+  hh = {
+      :ename => "Введите ваше имя пожалуйста.",
+      :email => "Введите адрес электронной почты",
+      :message => "Ваше сообщение пусто - введите текст сообщения",
+  }
+
+  @error = hh.select {|key, | params[key] == ""}.values.join(", ")
+
+  if @error != ""
+    return  erb :contacts
+  else
+    @error = NIL
+  end
+
+  contact = Contact.new
+  contact.ename = @ename
+  contact.email = @email
+  contact.message = @message
+  contact.save
+
+
+  # erb :contacts_mess
+  erb "Спасибо за обращение, в ближайшее время вам ответят"
+  # erb :contacts
+end
