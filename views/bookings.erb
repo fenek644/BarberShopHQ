@@ -11,7 +11,7 @@
   <%# @db.execute 'select * from Users order by id desc' do |row| %>
   <% @booking.each do |row| %>
     <tr>
-      <td><%=row.name %></td>
+      <td><a href="/bookings/<%= row.id %>"> <%=row.name %></a></td>
       <td><%=row.phone %></td>
       <td><%=row.datestamp %></td>
       <td><%=row.barber %></td>
