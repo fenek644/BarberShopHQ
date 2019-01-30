@@ -102,3 +102,7 @@ post '/contacts' do
   erb "Спасибо за обращение, в ближайшее время вам ответят"
   # erb :contacts
 end
+
+get '/barber/:id' do
+  erb :barber
+end
