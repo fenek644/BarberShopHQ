@@ -1,3 +1,5 @@
+<h1> Information of the booking of <%= @client.name %></h1>
+
 <table class="table">
   <thead>
   <tr>
@@ -8,13 +10,13 @@
     <th>Цвет</th>
   </tr>
   </thead>
-  <%# @db.execute 'select * from Users order by id desc' do |row| %>
-  <% @booking.each do |row| %>
+  <% row = @client %>
     <tr>
-      <td><a href="/bookings/<%= row.id %>"> <%=row.name %></a></td>
+<!--      <td><a href="/bookings/<%#= row.id %>"> <%#=row.name %></a></td>-->
+      <td> <%=row.name %></td>
       <td><%=row.phone %></td>
       <td><%=row.datestamp %></td>
       <td><%=row.barber %></td>
       <td style="background-color: <%=row.color %>"></td>
     </tr>
-  <% end %>
+  <%# end %>

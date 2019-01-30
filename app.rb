@@ -47,19 +47,9 @@ end
 
 post '/visit' do
 
-  # @user_name = params[:username]
-  # @phone = params[:phone]
-  # @date_time = params[:date_time]
-  #
-  # @master = params[:master]
-  # @color = params[:colorpicker]
-  #
+
   @cl = Client.new params[:client]
-  # cl.name = @user_name
-  # cl.phone = @phone
-  # cl.datestamp = @date_time
-  # cl.barber = @master
-  # cl.color = @color
+
   if @cl.save
   # erb :visit_mess
     erb "OK #{params[:client][:name]}; вы записаны на #{params[:client][:datestamp]}; ваш мастер #{params[:client][:barber]}; выбранный цвет #{params[:client][:color]}"
@@ -111,4 +101,9 @@ end
 get '/bookings' do
   @booking = Client.all
   erb :bookings
+end
+
+get '/bookings/:id' do
+  @client = Client.find(params[:id])
+  erb :client
 end
