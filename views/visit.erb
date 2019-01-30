@@ -23,7 +23,7 @@
 <!--      <option></option>-->
       <% @barbers.each do |row| %>
        <% name =  row.name %>
-      <option <%= @master == name ? 'selected' : '' %>><%= name %></option>
+      <option <%= @cl.barber == name ? 'selected' : '' %>><%= name %></option>
         <% end %>
     </select>
   </div>
