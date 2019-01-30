@@ -37,6 +37,7 @@ end
 
 get '/visit' do
   # @db = get_db
+  @cl = Client.new
   erb :visit
 end
 
@@ -53,17 +54,17 @@ post '/visit' do
   @master = params[:master]
   @color = params[:colorpicker]
 
-  cl = Client.new params[:client]
+  @cl = Client.new params[:client]
   # cl.name = @user_name
   # cl.phone = @phone
   # cl.datestamp = @date_time
   # cl.barber = @master
   # cl.color = @color
-  if cl.save
+  if @cl.save
   # erb :visit_mess
     erb "OK #{params[:client][:name]}; вы записаны на #{params[:client][:datestamp]}; ваш мастер #{params[:client][:barber]}; выбранный цвет #{params[:client][:color]}"
   else
-    @error = cl.errors.full_messages.first
+    @error = @cl.errors.full_messages.first
     erb :visit
 
   end
