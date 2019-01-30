@@ -59,13 +59,16 @@ post '/visit' do
   # cl.datestamp = @date_time
   # cl.barber = @master
   # cl.color = @color
-  cl.save
-
-
-
+  if cl.save
   # erb :visit_mess
-  erb "OK #{params[:client][:name]}; вы записаны на #{params[:client][:datestamp]}; ваш мастер #{params[:client][:barber]}; выбранный цвет #{params[:client][:color]}"
+    erb "OK #{params[:client][:name]}; вы записаны на #{params[:client][:datestamp]}; ваш мастер #{params[:client][:barber]}; выбранный цвет #{params[:client][:color]}"
+  else
+    @error = "Ошибка загрузки в базу"
+    erb :visit
+
+  end
 end
+
 
 post '/contacts' do
   @ename = params[:ename]
