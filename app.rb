@@ -21,6 +21,9 @@ class Barber < ActiveRecord::Base
 end
 
 class Contact < ActiveRecord::Base
+  validates :ename, presence: true, length: {minimum: 3 }
+  validates :email, presence: true
+  validates :message, presence: true
 
 end
 
@@ -36,61 +39,40 @@ get '/' do
 end
 
 get '/visit' do
-  # @db = get_db
   @cl = Client.new
   erb :visit
 end
 
 get '/contacts' do
+  @con = Contact.new
   erb :contacts
 end
 
 post '/visit' do
 
-
   @cl = Client.new params[:client]
 
   if @cl.save
-  # erb :visit_mess
     erb "OK #{params[:client][:name]}; вы записаны на #{params[:client][:datestamp]}; ваш мастер #{params[:client][:barber]}; выбранный цвет #{params[:client][:color]}"
   else
     @error = @cl.errors.full_messages.first
     erb :visit
-
   end
+
 end
 
 
 post '/contacts' do
-  @ename = params[:ename]
-  @email = params[:email]
-  @message = params[:message]
 
+  @con = Contact.new params[:contact]
 
-  hh = {
-      :ename => "Введите ваше имя пожалуйста.",
-      :email => "Введите адрес электронной почты",
-      :message => "Ваше сообщение пусто - введите текст сообщения",
-  }
-
-  @error = hh.select {|key, | params[key] == ""}.values.join(", ")
-
-  if @error != ""
-    return  erb :contacts
+  if @con.save
+    erb "Спасибо за обращение, в ближайшее время вам ответят"
   else
-    @error = NIL
+    @error = @con.errors.full_messages.first
+    erb :contacts
   end
 
-  contact = Contact.new
-  contact.ename = @ename
-  contact.email = @email
-  contact.message = @message
-  contact.save
-
-
-  # erb :contacts_mess
-  erb "Спасибо за обращение, в ближайшее время вам ответят"
-  # erb :contacts
 end
 
 get '/barber/:id' do
