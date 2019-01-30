@@ -8,7 +8,7 @@ require 'bigdecimal'
 set :database, "sqlite3:barbershop.db"
 
 class Client < ActiveRecord::Base
-  validates :name, presence: true
+  validates :name, presence: true, length: {minimum: 3 }
   validates :phone, presence: true
   validates :datestamp, presence: true
   validates :barber, presence: true
@@ -47,13 +47,13 @@ end
 
 post '/visit' do
 
-  @user_name = params[:username]
-  @phone = params[:phone]
-  @date_time = params[:date_time]
-
-  @master = params[:master]
-  @color = params[:colorpicker]
-
+  # @user_name = params[:username]
+  # @phone = params[:phone]
+  # @date_time = params[:date_time]
+  #
+  # @master = params[:master]
+  # @color = params[:colorpicker]
+  #
   @cl = Client.new params[:client]
   # cl.name = @user_name
   # cl.phone = @phone
