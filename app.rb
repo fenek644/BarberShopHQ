@@ -63,7 +63,7 @@ post '/visit' do
   # erb :visit_mess
     erb "OK #{params[:client][:name]}; вы записаны на #{params[:client][:datestamp]}; ваш мастер #{params[:client][:barber]}; выбранный цвет #{params[:client][:color]}"
   else
-    @error = "Ошибка загрузки в базу"
+    @error = cl.errors.full_messages.first
     erb :visit
 
   end
